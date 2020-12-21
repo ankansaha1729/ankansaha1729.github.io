@@ -122,8 +122,6 @@
 	</audio>
 	
 	<script>
-		document.getElementById("pi").value= Math.PI.toFixed(7);
-		document.getElementById("e").value= Math.E.toPrecision(8);
 		document.getElementById('back').onclick= backs();
 		function myFunction(ID) {
 			document.getElementById('screen').innerHTML += document.getElementById(ID).value;
@@ -142,9 +140,12 @@
 		
 		function solve() {
 			document.getElementById("myAudio").play();
-			var result=0;
+			/*initializing the result expression */
+			var result = '';
 			result = document.getElementById('screen').innerHTML;
-			result = result.replace(/\^/g,'**')
+			result = result.replace(/\^/g,'**');
+			result = result.replace(/π/g,Math.PI.toFixed(8));
+			result = result.replace(/e/g,Math.E.toPrecision(7));
 			document.getElementById('screen').innerHTML = eval(result);
 		}
 	</script>
