@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width = device-width, initial-scale=1">
+	<title>My First Web Calculator!!!!!</title>
+	
+	<style>
+		body{
+			background-color: lightgrey;
+			margin-left: 15%;
+			margin-top: 7%;
+		}
+		div {
+			width: 81%;
+			background-color: #3F422D;
+			padding-top: .1px;
+			padding-left: 4%;
+			padding-right: 1.6%;
+			padding-bottom: 5px;
+			border-radius: 15px;
+		}
+		button {
+			width: 23%;
+			padding: 21px;
+			border-radius: 5px;
+			background-color: #737F67;
+			color: dark;
+			font-weight: bold;
+			outline: none;
+		}
+		#screen {
+			width: 82%;
+			height: 41px;
+			overflow-x: scroll;
+			margin-top:  51px;
+			text-align: right;
+			background-color: grey;
+			padding: 7% 6.9% 7% 7%;
+			border-radius: 0px;
+		}
+		#dot {
+			font-size: 20px;
+			padding-top: 18px;
+			padding-right: 21px;	
+		}
+		#zero {
+			font-size: 19px;
+			padding-top: 18px;
+			padding-right: 19px;
+			padding-left: 18px;
+		}
+		#AC,#br_1,#br_2,#other {
+			padding: 0px;
+			width: 50px;
+			height: 20px;
+		}
+		#AC{ background-color: #CCC401;}
+		#back {
+			background-color: #525901;
+			margin: 10x;
+			padding: 10px 10px 10px 10px;
+			line-height: 10px;
+			text-align: center;
+		}
+		#C {
+			font-size: 19px;
+			padding-top: 18px;
+			padding-right: 13px;
+			padding-left: 23px;	
+		}
+		#pi,#e,#br_1,#br_2 {
+			margin-left: 6px;
+			width: 20px;
+			height: 20px;
+			padding: 0px;
+		}
+		#pow {
+			margin-left: 6px;
+			width: 23%;
+			height: 20px;
+			padding: 0px;
+		}
+		#slv {
+			width: 97%;
+			height: 34px;
+			line-height: 0px;
+		}
+	</style>
+</head>
+<body>
+	<!--p id="demo2"></p-->
+	<div>
+		<p id="screen" contenteditable></p>
+		<button id="AC" onclick="myFunction_2()" value="">AC</button>
+		<button id="br_1" onclick="myFunction('br_1')" value="(">(</button>
+		<button id="br_2" onclick="myFunction('br_2')" value=")">)</button>
+		<button id="pi" onclick="myFunction('pi')" value="">π</button>
+		<button id="e" onclick="myFunction('e')" value="">e </button>
+		<button id="pow" onclick="myFunction('pow')" value="^"> ^ </button> <br><br>
+		<button id="7" onclick="myFunction(7)" value="7">7</button>
+		<button id="8" onclick="myFunction(8)" value="8">8</button>
+		<button id="9" onclick="myFunction(9)" value="9">9</button>
+		<button id="+" onclick="myFunction('+')" value="+">+</button><br>
+		<button id="4" onclick="myFunction(4)" value="4">4</button>
+		<button id="5" onclick="myFunction(5)" value="5">5</button>
+		<button id="6" onclick="myFunction(6)" value="6">6</button>
+		<button id="-" onclick="myFunction('-')" value="-">-</button><br>
+		<button id="1" onclick="myFunction(1)" value="1">1</button>
+		<button id="2" onclick="myFunction(2)" value="2">2</button>
+		<button id="3" onclick="myFunction(3)" value="3">3</button>
+		<button id="*" onclick="myFunction('*')" value="*">*</button><br>
+		<button id="dot" onclick="myFunction('dot')" value=".">.</button>
+		<button id="zero" onclick="myFunction('zero')" value="0">0</button>
+		<button id="C" onclick="myFunction_3()" value="p">C</button>
+		<button id="/" onclick="myFunction('/')" value="/">/</button><br>
+		<button id="slv" onclick="solve()" value="">solve</button>
+	</div>
+	<audio id="myAudio">
+		<source src="../../media/audios/button-16.mp3" type="audio/mp3">
+	</audio>
+	
+	<script>
+		document.getElementById("pi").value= Math.PI.toFixed(7);
+		document.getElementById("e").value= Math.E.toPrecision(8);
+		document.getElementById('back').onclick= backs();
+		function myFunction(ID) {
+			document.getElementById('screen').innerHTML += document.getElementById(ID).value;
+			document.getElementById("myAudio").play();
+		}
+		
+		function myFunction_2() {
+			document.getElementById('screen').innerHTML = "";
+		}
+		
+		function myFunction_3() {
+			var text = document.getElementById('screen').innerHTML,l;
+			l = text.length;
+			document.getElementById('screen').innerHTML = text.slice(0,l-1);
+		}
+		
+		function solve() {
+			document.getElementById("myAudio").play();
+			var result=0;
+			result = document.getElementById('screen').innerHTML;
+			result = result.replace(/\^/g,'**')
+			document.getElementById('screen').innerHTML = eval(result);
+		}
+	</script>
+</body>
+</html>
