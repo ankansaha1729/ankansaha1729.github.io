@@ -2,34 +2,38 @@
 
 <html>
 <head>
-	<title> Web </title>
-	<meta name="viewport" content="width=device-width initial-scale=1">
+	<title> Tic-tac-toe </title>
+	<meta name="viewport" content="width=device-width initial-scale=1.0" >
+	<meta name="description" content="Tic-tac-toe Game">
+	<meta name="key-word" content="ti-tac-toe,kit-kat-koe,katakuti">
 	<style>
 		*{
-			margin: 0px;
-		}
-		body {
-			background-color: lightgrey;
+			text-align: center;
+			margin:0px;
 		}
 		header {
-			width:100%;
-			height: 12vh;
-			color: #fff;
-			background-color: #333;
-			line-height: 12vh;
-			position: fixed;
+			background-color: #737F67;
+			color: #FBFBFB;
+			height: 10vh;
+			font-size: 3vh;
 		}
-		footer {
-			margin-top: 65.5vh;
-			margin-bottom: 0px;
-			color: white;
-			height: 7vh;
-			text-align: center;
-			line-height: 7vh;
-			background-color: #333;
-			padding: 5px;
+		a {
+			text-decoration: none;
 		}
-		div {
+		#frnd {
+			margin: 17vh 5vw 5vh 9vw;
+			width: 80%;
+			height: 10vh;
+			background-color: grey;
+			font-weight: bold;
+			text-align : center;
+			line-height: 10vh;
+			padding: 2px;
+			border-radius: 5px;
+		
+		}
+		
+		#comp {
 			margin: 5vh 5vw 5vh 9vw;
 			width: 80%;
 			height: 10vh;
@@ -39,32 +43,55 @@
 			line-height: 10vh;
 			padding: 2px;
 			border-radius: 5px;
-			
+		
 		}
-		a {
-			text-decoration: none;
+		
+		@media only screen and (min-width : 480px) {
+			header {
+				background-color: #737F67;
+				color: #FBFBFB;
+				height: 10vw;
+				font-size: 3vw;
+			}
+			#frnd {
+				margin: 7vh 5vw 5vh 9vw;
+				width: 80%;
+				height: 10vw;
+				background-color: grey;
+				font-weight: bold;
+				text-align : center;
+				line-height: 10vw;
+				padding: 2px;
+				border-radius: 5px;
+			
+			}
+			#comp {
+				margin: 5vh 5vw 5vh 9vw;
+				width: 80%;
+				height: 10vw;
+				background-color: grey;
+				font-weight: bold;
+				text-align : center;
+				line-height: 10vw;
+				padding: 2px;
+				border-radius: 5px;
+			}
 		}
 	</style>
 </head>
 <body>
 	<header>
-		<p>
-			<h1>&nbspPritom Saha</h1>
-		</p>
+		<h1> <ins><strong>Tic-Tac-Toe<sttong><ins> </h1>
 	</header>
-	<br><br><br>
 	
-	<div>
-		<a href="with_friend.html"> Friend </a>
+	
+	<div id="frnd">
+	<a href="with_friend.html"> Friend </a>
 	</div>
 	
-	<div>
+	<div id="comp">
 	<a href="with_computer.html"> Computer  </a>
 	</div>
-	
-	
-	<footer>
-		ankansaha1729.github.io
-	</footer>
 </body>
 </html>
+<!-- published on my 2nd coding aniversary _ 29-12-2020-->
