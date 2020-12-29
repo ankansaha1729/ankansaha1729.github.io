@@ -119,7 +119,7 @@
 </head>
 <body>
 	<header>
-		<h1> <ins><strong>Tic-Tac-Toe<sttong><ins> </h1>
+		<h1> <ins><strong>Tic-tac-toe<sttong><ins> </h1>
 	</header>
 	<p id="index"></p>
 	
@@ -279,13 +279,6 @@
 			for (var i=0;i<9;i++) {
 				combox[i]=board[i];
 			}
-			if ((term == 1) && (!game%2) && (board[0] == 'X' || board[2] == 'X' || board[6] == 'X' || board[8] == 'X')) {
-				if (board[4] == ' ') {
-					document.getElementById(id[4]).innerHTML = 'O';
-					board[4] = 'O';
-					return;
-				}
-			}
 			
 			if ((term == 1) && (!game%2) && (!game%2) &&(board[1] == 'X')) {
 				inDx = [0,4,7,2][ran_bool(2)];
@@ -315,22 +308,22 @@
 			
 			if (game%2 && !board.includes('X') && !board.includes('O')) {
 				if (ran_bool(2)) {
-					formulo =0;
+					formulo = 0;
 					inDx = [0,2,6,8][ran_bool(4)]
 					document.getElementById(id[inDx]).innerHTML = 'O';
 					board[inDx] = 'O';
 					return;
 				}
 				else if (ran_bool(2)) {
-					formulo = 1;
-					document.getElementById(id[4]).innerHTML = 'O';
-					board[4] = 'O';
-					return;
-				}
-				else {
 					inDx = [1,3,5,7][ran_bool(4)]
 					document.getElementById(id[inDx]).innerHTML = 'O';
 					board[inDx] = 'O';
+					return;
+				}
+				else {
+					formulo = 1;
+					document.getElementById(id[4]).innerHTML = 'O';
+					board[4] = 'O';
 					return;
 				}
 			}
@@ -518,18 +511,59 @@
 					}
 				}
 			}
-			if (game%2 && cont) {
+			if (board[0] == ' ' && board[1] == 'O' && board[2] == ' ' && board[3] == 'X' && board[4] == ' ' && board[5] == ' ' && board[6] == ' ' && board[7] == ' ' && board[8] == ' ') {
+				cont=0;
+			}
+			if (board[0] == ' ' && board[1] == 'O' && board[2] == ' ' && board[3] == ' ' && board[4] == ' ' && board[5] == 'X' && board[6] == ' ' && board[7] == ' ' && board[8] == ' ') {
+				cont=0;
+			}
+			if (board[0] == ' ' && board[1] == 'O' && board[2] == ' ' && board[3] == ' ' && board[4] == ' ' && board[5] == ' ' && board[6] == ' ' && board[7] == 'X' && board[8] == ' ') {
+				cont=0;
+			}
+			
+			if (board[0] == ' ' && board[1] == 'X' && board[2] == ' ' && board[3] == 'O' && board[4] == ' ' && board[5] == ' ' && board[6] == ' ' && board[7] == ' ' && board[8] == ' ') {
+				cont=0;
+			}
+			if (board[0] == ' ' && board[1] == ' ' && board[2] == ' ' && board[3] == 'O' && board[4] == ' ' && board[5] == 'X' && board[6] == ' ' && board[7] == ' ' && board[8] == ' ') {
+				cont=0;
+			}
+			if (board[0] == ' ' && board[1] == ' ' && board[2] == ' ' && board[3] == 'O' && board[4] == ' ' && board[5] == ' ' && board[6] == ' ' && board[7] == 'X' && board[8] == ' ') {
+				cont=0;
+			}
+			
+			if (board[0] == 'X' && board[1] == ' ' && board[2] == ' ' && board[3] == ' ' && board[4] == ' ' && board[5] == 'O' && board[6] == ' ' && board[7] == ' ' && board[8] == ' ') {
+				cont=0;
+			}
+			if (board[0] == ' ' && board[1] == ' ' && board[2] == ' ' && board[3] == 'X' && board[4] == ' ' && board[5] == 'O' && board[6] == ' ' && board[7] == ' ' && board[8] == ' ') {
+				cont=0;
+			}
+			if (board[0] == ' ' && board[1] == ' ' && board[2] == ' ' && board[3] == ' ' && board[4] == ' ' && board[5] == 'O' && board[6] == ' ' && board[7] == 'X' && board[8] == ' ') {
+				cont=0;
+			}
+			
+			if (board[0] == 'X' && board[1] == ' ' && board[2] == ' ' && board[3] == ' ' && board[4] == ' ' && board[5] == ' ' && board[6] == ' ' && board[7] == 'O' && board[8] == ' ') {
+				cont=0;
+			}
+			if (board[0] == ' ' && board[1] == ' ' && board[2] == ' ' && board[3] == 'X' && board[4] == ' ' && board[5] == ' ' && board[6] == ' ' && board[7] == 'O' && board[8] == ' ') {
+				cont=0;
+			}
+			if (board[0] == ' ' && board[1] == ' ' && board[2] == ' ' && board[3] == ' ' && board[4] == ' ' && board[5] == 'X' && board[6] == ' ' && board[7] == 'O' && board[8] == ' ') {
+				cont=0;
+			}
+			
+			
+			if (game%2 && !cont) {
 				cont = 0;
 				inDx_1 = board.indexOf('O');
 				inDx = board.indexOf('X');
 				if (inDx_1 == 1) {
-					if (inDx == 3 || inDx == 8) {
+					if (inDx == 3 || inDx == 6) {
 						inDx_2 = 0;
 						document.getElementById(id[inDx_2]).innerHTML = 'O';
 						board[inDx_2] = 'O';
 						return;
 					}
-					if (inDx == 5 || inDx == 6) {
+					if (inDx == 5 || inDx == 8) {
 						inDx_2 = 2;
 						document.getElementById(id[inDx_2]).innerHTML = 'O';
 						board[inDx_2] = 'O';
@@ -537,13 +571,13 @@
 					}
 				}
 				if (inDx_1 == 3) {
-					if (inDx == 7 || inDx == 2) {
+					if (inDx == 7 || inDx == 8) {
 						inDx_2 = 6;
 						document.getElementById(id[inDx_2]).innerHTML = 'O';
 						board[inDx_2] = 'O';
 						return;
 					}
-					if (inDx == 1 || inDx == 8) {
+					if (inDx == 1 || inDx == 2) {
 						inDx_2 = 0;
 						document.getElementById(id[inDx_2]).innerHTML = 'O';
 						board[inDx_2] = 'O';
@@ -551,13 +585,13 @@
 					}
 				}
 				if (inDx_1 == 5) {
-					if (inDx == 1 || inDx == 6) {
+					if (inDx == 1 || inDx == 0) {
 						inDx_2 = 2;
 						document.getElementById(id[inDx_2]).innerHTML = 'O';
 						board[inDx_2] = 'O';
 						return;
 					}
-					if (inDx == 0 || inDx == 7) {
+					if (inDx == 6 || inDx == 7) {
 						inDx_2 = 8;
 						document.getElementById(id[inDx_2]).innerHTML = 'O';
 						board[inDx_2] = 'O';
@@ -565,19 +599,27 @@
 					}
 				}
 				if (inDx_1 == 7) {
-					if (inDx == 5 || inDx == 0) {
+					if (inDx == 5 || inDx == 2) {
 						inDx_2 = 8;
 						document.getElementById(id[inDx_2]).innerHTML = 'O';
 						board[inDx_2] = 'O';
 						return;
 					}
-					if (inDx == 3 || inDx == 2) {
+					if (inDx == 3 || inDx == 0) {
 						inDx_2 = 6;
 						document.getElementById(id[inDx_2]).innerHTML = 'O';
 						board[inDx_2] = 'O';
 						return;
 					}
 				}
+			}
+			//The_center_rule
+			if ((term == 1) && (board[0] == 'X' || board[2] == 'X' || board[6] == 'X' || board[8] == 'X')) {
+			if (board[4] == ' ') {
+			document.getElementById(id[4]).innerHTML = 'O';
+			board[4] = 'O';
+			return;
+			}
 			}
 			//pre_genius_calculations
 			if ((board[2] == 'X' && board[4] == 'O' || board[6] == 'X') && (board[0] == ' ' && board[1] == ' ' && board[3] == ' ' && board[5] == ' ' && board[7] == ' ' && board[8] == ' ')) {
@@ -731,6 +773,7 @@
 					if ((board[2] == 'X' && board[4] == 'O' && board[6] == 'X') && (i == 0 || i == 8)) {continue;}
 					document.getElementById(id[i]).innerHTML = 'O';
 					board[i] = 'O';
+					alert('random');
 					return;
 				}
 			}
@@ -768,4 +811,3 @@
 	</script>
 </body>
 </html>
-
