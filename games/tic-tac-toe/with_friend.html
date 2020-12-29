@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title> Tic-tac-toe </title>
+	<meta name="viewport" content="width=device-width initial-scale=1.0" >
+	<meta name="description" content="Tic-tac-toe Game">
+	<meta name="key-word" content="ti-tac-toe,kit-kat-koe,katakuti">
+	<style>
+		*{
+			text-align: center;
+			margin:0px;
+		}
+		header {
+			background: #737F67;
+			color: #FBFBFB;
+			height: 10vh;
+			font-size: 3vh;
+		}
+		body {
+			background-color: #BABABA;
+		}
+		table {
+			margin: 5vw;
+			margin-top: 0px;
+			margin-bottom: 0vh;
+			border-style: solid;
+			border-color: #BF934B;
+			border-width: 10px;
+			border-radius: 5px;
+			background-color: black;
+		}
+		td {
+			width: 27vw;
+			height: 27vw;
+			font-size: 7vw;
+			border-color: yellow;
+			background-color: #377C7D;
+			border-radius: 5px;
+		}
+		#index {
+			margin: 11vw;
+			margin-top:  5vh;
+			margin-bottom: 1vh;
+			background-color: #816A52;
+			height: 10vh;
+			line-height: 10vh;
+			border-radius: 3px;
+			font-size: 6vh;
+			font-weight: bolder;
+			
+		}
+		#restart {
+			margin: 11vw;
+			margin-top: 1vh;
+			margin-bottom: 1vh;
+			background-color: #816A52;
+			height: 10vh;
+			line-height: 10vh;
+			border-radius: 3px;
+			font-size: 5vh;
+			font-weight: bold;
+		}
+		
+		@media only screen and (min-width: 480px) {
+			body {
+				background: lightgrey;
+			}
+			header {
+				background-image: #737F67;
+				color: #FBFBFB;
+				height: 10vw;
+				font-size: 3vw;
+			}
+			#index {
+				margin: 32vw;
+				margin-top:  5vh;
+				margin-bottom: 1vh;
+				margin-right: 33vw;
+				background-color: #816A52;
+				height: 5vw;
+				line-height: 5vw;
+				border-radius: 3px;
+				font-size: 3vw;
+				font-weight: bolder;
+				display: block;
+			}
+			#restart {
+				margin: 32vw;
+				margin-top:  1vh;
+				margin-bottom: 1vh;
+				margin-right: 33vw;
+				background-color: #816A52;
+				height: 5vw;
+				line-height: 5vw;
+				border-radius: 3px;
+				font-size: 3vw;
+				font-weight: bolder;
+				display: block;
+			}
+			table {
+				margin: 30vw;
+				margin-top: 0px;
+				margin-bottom: 0vw;
+				border-style: solid;
+				border-color: #BF934B;
+				border-width: 10px;
+				border-radius: 5px;
+				background-color: black;
+			}
+			td {
+				width: 27vh;
+				height: 27vh;
+				font-size: 7vh;
+				border-color: yellow;
+				background-color: #377C7D;
+				border-radius: 5px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1> <ins><strong>Tic-Tac-Toe<sttong><ins> </h1>
+	</header>
+	<p id="index"></p>
+	
+	<table id="tbl">
+		<tr>
+			<td id="AA" onclick="turn(0)"></td>
+			<td id="AB" onclick="turn(1)"></td>
+			<td id="AC" onclick="turn(2)"></td>
+		</tr>
+		<tr>
+			<td id="BA" onclick="turn(3)"></td>
+			<td id="BB" onclick="turn(4)"></td>
+			<td id="BC" onclick="turn(5)"></td>
+		</tr>
+		<tr>
+			<td id="CA" onclick="turn(6)"></td>
+			<td id="CB" onclick="turn(7)"></td>
+			<td id="CC" onclick="turn(8)"></td>
+		</tr>
+	</table>
+	<div id="restart" onclick="restartGame();">
+		Restart
+	</div>
+	
+	<!--audio-->
+	<audio id="click">
+		<source src="../../media/audios/button-16.mp3" type="audio/mp3">
+	</audio>
+	<audio id="rstart">
+		<source src="../../media/audios/button-17.mp3" type="audio/mp3">
+	</audio>
+	<audio id="draw">
+		<source src="../../media/audios/button-16.mp3" type="audio/mp3">
+	</audio>
+	<audio id="wins">
+		<source src=" ../../media/audios/button-43.mp3 " type="audio/mp3">
+	</audio>
+	
+	<script>
+		var term=0,signs= ['X','O'],finished = false;
+		var board = [' ',' ',' ',' ',' ',' ',' ',' ',' '];
+		var id = ['AA','AB','AC','BA','BB','BC','CA','CB','CC']
+		var ids = [['AA','AB','AC'],['BA','BB','BC'],['CA','CB','CC'],['AA','BA','CA'],['AB','BB','CB'],['AC','BC','CC'],['AA','BB','CC'],['AC','BB','CA']];
+		var winSeqs = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+		
+		for (var i=0;i<9;i++) {
+			document.getElementById(id[i]).innerHTML = board[i];
+		}
+		document.getElementById('index').innerHTML = 'Player - '+signs[term%2];
+		
+		
+		function drawBoard(){
+			for (var i=0;i<9;i++) {
+				document.getElementById(id[i]).innerHTML = board[i];
+			}
+		}
+		function turn(n) {
+			if (finished) {
+				return;
+			}
+			if (board[n] != ' '){
+				return;
+			}
+			
+			board[n] = signs[term%2];
+			term+=1;
+			document.getElementById('index').innerHTML = 'Player - ' + signs[term%2];
+			drawBoard();
+			
+			if (wins()[1]){
+				finished = true;
+				term-=1
+				document.getElementById('index').innerHTML = wins()[0]+' -Wins';
+				
+				playWins();
+			}
+			else if (draw()) {
+				finished = true;
+				document.getElementById('index').innerHTML = 'Match Draw';
+				document.getElementById('tbl').style.backgroundColor = 'white';
+				
+				playDraw();
+			}
+			else {
+				
+				playClick();
+			}
+		}
+		function wins(){
+			var winSeqs = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+			for (var x of winSeqs) {
+				if (board[x[0]] != ' ') {
+					if (board[x[0]] == board[x[1]] && board[x[1]] == board[x[2]]) {
+						for (var i=0;i<3;i++) {
+							document.getElementById(id[x[i]]).style.color = 'red';
+						}
+						return [board[x[0]],true];
+					}
+				}
+			}
+			return ['',false];
+		}
+		function draw(){
+			return !board.includes(' ');
+		}
+		
+		//audio_script
+		function playClick() {
+		document.getElementById('click').play();
+		}
+		function playRestart() {
+		document.getElementById('rstart').play();
+		}
+		function playDraw() {
+		document.getElementById('draw').play();
+		}
+		function playWins() {
+		document.getElementById('wins').play();
+		}
+		
+		
+		function restartGame() {
+			playRestart();
+			term = 0,finished = false;
+			board = [' ',' ',' ',' ',' ',' ',' ',' ',' '];
+			drawBoard();
+			document.getElementById('index').innerHTML = 'Player - '+signs[term%2];
+			
+			for (var i=0;i<9;i++) {
+				document.getElementById(id[i]).style.color = 'black';
+			}
+			document.getElementById('tbl').style.backgroundColor = 'black';
+			
+		}
+	</script>
+</body>
+</html>
