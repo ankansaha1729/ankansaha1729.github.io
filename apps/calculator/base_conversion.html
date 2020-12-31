@@ -134,7 +134,14 @@
 				num_2 = num_2+ s[indx];
 				n2 = (n2*base)-indx;
 			}
-			if (num == ''){ num='0'};return num+'.'+num_2;
+			if (num == ''){ num='0'};
+                        for (var i=0;i<num_2.length;i++) {
+				if (num_2[i] != '0'){break};
+				if (i == num_2.length-1) {
+					return num;
+				}
+			}
+                        return num+'.'+num_2;
 		}
 	</script>
 </body>
