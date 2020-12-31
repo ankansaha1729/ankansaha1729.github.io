@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title> </title>
+	<meta>
+	<style>
+		*{
+			margin: 0px;
+			padding: 0px;
+			color : #BABABA;
+		}
+		h1 {
+			color: white;
+		}
+		header {
+			text-align: center;
+			background-color: #303030;
+			height: 60px;
+			line-height: 60px;
+		}
+		body {
+			background-color: lightgrey;
+		
+		}
+		div {
+			margin-top: 4vh;
+			background-color: #303030;
+		}
+		input {
+			width: 75%;
+			height: 60px;
+			margin-bottom: 2vh;
+			text-align: center;
+			margin-left: 13vw;
+			border-radius: 5px;
+			outline: none;
+			border-color: black;
+			padding: 2px;
+			font-weight: bold;
+			color: black;
+			background-color: #fff;
+			caret-color: blue;
+		
+		}
+		button {
+			width: 50%;
+			margin-left: 27vw;
+			margin-top: 12px;
+			padding: 10px;
+			background-color: #173458;
+			border-radius: 10px;
+			padding: 10px 40px 10px 40px;
+			font-weight: bold;
+			color: white;
+			font-size: 20px;
+			outline: none;
+		}
+		select {
+			margin-left: 70vw;
+			padding: 5px 10px 5px 10px;
+			font-weight: bold;
+			color: black;
+			outline: none;
+		}
+		#result {
+			margin-top: 6vh;
+			margin-left: 10%;
+			margin-bottom: 3px;
+			width: 82%;
+		}
+		#n1 {
+			margin-top: 2vh;
+		}
+		#op {
+			width : 20%;
+			margin-left: 42vw;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Base Calculator</h1>
+	</header>
+	<input id="result" >
+	<select id="base">
+		<option value="2">base</option>>
+		<option value="2">2</option>>
+		<option value="3"> 3 </option>
+		<option value="4"> 4 </option>
+		<option value="5"> 5 </option>
+		<option value="6"> 6 </option>
+		<option value="7"> 7 </option>
+		<option value="8"> 8 </option>
+		<option value="9"> 9 </option>
+		<option value="10"> 10 </option>
+		<option value="11"> 11 </option>
+		<option value="12"> 12 </option>
+		<option value="13"> 13 </option>
+		<option value="14"> 14 </option>
+		<option value="15"> 15 </option>
+		<option value="16"> 16 </option>
+		<option value="17"> 17 </option>
+		<option value="18"> 18 </option>
+		<option value="19"> 19 </option>
+		<option value="20"> 20 </option>
+		<option value="21"> 21 </option>
+		<option value="22"> 22 </option>
+		<option value="23"> 23 </option>
+		<option value="24"> 24 </option>
+		<option value="25"> 25 </option>
+		<option value="26"> 26 </option>
+		<option value="27"> 27 </option>
+		<option value="28"> 28 </option>
+		<option value="29"> 29 </option>
+		<option value="30"> 30 </option>
+		<option value="31"> 31 </option>
+		<option value="32"> 32 </option>
+		<option value="33"> 33 </option>
+		<option value="34"> 34 </option>
+		<option value="35"> 35 </option>
+		<option value="36"> 36 </option>
+		<option value="37"> 37 </option>
+		<option value="38"> 38 </option>
+		<option value="39"> 39 </option>
+		<option value="40"> 40 </option>
+		<option value="41"> 41 </option>
+		<option value="42"> 42 </option>
+		<option value="43"> 43 </option>
+		<option value="44"> 44 </option>
+		<option value="45"> 45 </option>
+		<option value="46"> 46 </option>
+		<option value="47"> 47 </option>
+		<option value="48"> 48 </option>
+		<option value="49"> 49 </option>
+		<option value="50"> 50 </option>
+		<option value="51"> 51 </option>
+		<option value="52"> 52 </option>
+		<option value="53"> 53 </option>
+		<option value="54"> 54 </option>
+		<option value="55"> 55 </option>
+		<option value="56"> 56 </option>
+		<option value="57"> 57 </option>
+		<option value="58"> 58 </option>
+		<option value="59"> 59 </option>
+		<option value="60"> 60 </option>
+		<option value="61"> 61 </option>
+		<option value="62"> 62 </option>
+		<option value="63"> 63 </option>
+		<option value="64"> 64 </option>
+		
+	</select>
+	<div>
+		<hr>
+		<input id="n1" name="value1" type="text" placeholder="num 1"><br>
+		<input id="op" name="operator" type="text" placeholder="op"><br>
+		<input id="n2" name="value2" type="text" placeholder="num 2"><br>
+		<hr>
+	</div>
+	<button onclick="calc()"> Calculate </button>
+	<script>
+		var num=0,num_2=0,rad=0,n2,indx,s="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz:;";
+		var pb,rb,n1;
+		var nm_1,nm_2,op,base,estr,fact;
+		
+		function calc() {
+			nm_1 = document.getElementById('n1').value;
+			op = document.getElementById('op').value;
+			nm_2 = document.getElementById('n2').value;
+			base = document.getElementById('base').value;
+			nm_1 = toBase_10(base,nm_1);
+			nm_2 = toBase_10(base,nm_2);
+			if (op == '^') {
+				op='**';
+			}
+			if (op == '!') {
+				document.getElementById('result').value = fromBase_10(base,factorial(nm_1));
+				return;
+			}
+			estr = nm_1+op+nm_2
+			document.getElementById('result').value = fromBase_10(base,eval(estr));
+		}
+		function factorial(n) {
+			fact = 1;
+			for (var m=1;m<=n;m++) {
+				fact*=m;
+			}
+			return fact;
+		}
+		function toBase_10(base,n) {
+			n=n.toString();
+			num=0,rad=0;
+			for (var i=0;i<n.length;i++) {
+				if (n[i] == '.') {
+					break;
+				}
+				rad++;
+			}
+			j=rad-1;
+			for (var i=0;i<n.length;i++) {
+				if (n[i] == '.') {
+					continue;
+				}
+				pow = s.indexOf(n[i]);
+				num+=((base**j)*pow);
+				j--;
+			}
+		return num;
+		}
+		
+		function fromBase_10(base,n=10) {
+			num = '';
+			num_2='';
+			rad=0;
+			n=n.toString();
+			for (var i=0;i<n.length;i++) {
+				if (n[i] == '.') {
+					break;
+				}
+				rad++;
+			}
+			n=Number(n);
+			n1 = n.toString().slice(0,rad);
+			n2= (n-n1).toFixed(10);
+			while (n1>0) {
+				num = s[n1%base]+num;
+				n1=Math.floor(n1/base);
+			}
+			for (var i=0;i<7;i++) {
+				indx = Math.floor(n2*base);
+				num_2 = num_2+ s[indx];
+				n2 = (n2*base)-indx;
+			}
+			if (num == ''){ num='0'};
+			for (var i=0;i<num_2.length;i++) {
+				if (num_2[i] != '0'){break};
+				if (i == num_2.length-1) {
+					return num;
+				}
+			}
+			return num+'.'+num_2;
+		}
+		
+	</script>
+</body>
+</html>
+<!-- publishing on new year 2021 00:02:some_seconds-->
