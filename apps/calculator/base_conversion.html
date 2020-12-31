@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title> Number-Base </title>
+	<style>
+		*{
+			margin: 0px;
+			padding: 0px;
+			color : #BABABA;
+		}
+		h1 {
+			color: white;
+		}
+		header {
+			text-align: center;
+			background-color: #303030;
+			height: 60px;
+			line-height: 60px;
+		}
+		body {
+			background-color: grey;
+			
+		}
+		div {
+			margin-top: 4vh;
+			background-color: #303030;
+		}
+		input {
+			width: 75%;
+			height: 60px;
+			margin-bottom: 2vh;
+			text-align: center;
+			margin-left: 13vw;
+			border-radius: 5px;
+			outline: none;
+			border-color: black;
+			padding: 2px;
+			font-weight: bold;
+			color: black;
+			background-color: #fff;
+			caret-color: blue;
+			
+		}
+		button {
+			width: 50%;
+			margin-left: 27vw;
+			margin-top: 12px;
+			padding: 10px;
+			background-color: #173458;
+			border-radius: 10px;
+			padding: 10px 40px 10px 40px;
+			font-weight: bold;
+			color: white;
+			font-size: 20px;
+			outline: none;
+		}
+		#result {
+			margin-top: 6vh;
+			margin-left: 10%;
+			width: 82%;
+		}
+		#num {
+			margin-top: 2vh;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1> Base Converter </h1>
+	</header>
+	<input id="result"> </input>
+	<div>
+		<hr><br>
+		<input name="num" type="text" id="num" placeholder="Number"><br>
+		<input name="pbase" type="text" id="pbase" placeholder="Previous base" ><br>
+		<input name="rbase" type="text" id="rbase" placeholder="Required base"><br>
+		<br><hr>
+	</div>
+	<button id="solve" onclick="evals()" > calculate </button>
+	
+	<script>
+		var num=0,num_2=0,rad=0,n2,indx,s="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz:;";
+		var pb,rb,n1;
+		function evals() {
+			pb = document.getElementById('pbase').value;
+			rb = document.getElementById('rbase').value;
+			n1 = document.getElementById('num').value;
+			document.getElementById('result').value = fromBase_10(rb,toBase_10(pb,n1));
+		}
+		
+		function toBase_10(base,n) {
+			n=n.toString();
+			num=0,rad=0;
+			for (var i=0;i<n.length;i++) {
+				if (n[i] == '.') {
+					break;
+				}
+				rad++;
+			}
+			j=rad-1;
+			for (var i=0;i<n.length;i++) {
+				if (n[i] == '.') {
+					continue;
+				}
+				pow = s.indexOf(n[i]);
+				num+=((base**j)*pow);
+				j--;
+			}
+			return num;
+		}
+		
+		function fromBase_10(base,n=10) {
+			num = '';
+			num_2='';
+			rad=0;
+			n=n.toString();
+			for (var i=0;i<n.length;i++) {
+				if (n[i] == '.') {
+					break;
+				}
+				rad++;
+			}
+			n=Number(n);
+			n1 = n.toString().slice(0,rad);
+			n2= (n-n1).toFixed(10);
+			while (n1>0) {
+				num = s[n1%base]+num;
+				n1=Math.floor(n1/base);
+			}
+			for (var i=0;i<7;i++) {
+				indx = Math.floor(n2*base);
+				num_2 = num_2+ s[indx];
+				n2 = (n2*base)-indx;
+			}
+			if (num == ''){ num='0'};return num+'.'+num_2;
+		}
+	</script>
+</body>
+</html>
