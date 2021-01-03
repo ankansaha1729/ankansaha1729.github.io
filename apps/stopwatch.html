@@ -1,0 +1,144 @@
+<DOCTYPE html>
+<html>
+<head>
+	<title>Clock</title>
+	<meta name="viewport" content="width=device-width initial-scale=1.0" >
+	<style>
+		*{
+			padding: 0px;
+			outline: none;
+		}
+		body {
+			margin: 0px;
+		}
+		header {
+			width: 100%;
+			height: 12vh;
+			background-color: #303030;
+			line-height: 12vh;
+			text-align: center;
+		}
+		h1 {
+			color: white;
+		}
+		#container {
+			margin: 5vw;
+			background-color: lightgrey;
+			height: 70%;
+			border-radius: 120px;
+		}
+		#bar {
+			width: 70%;
+			height: 20vh;
+			margin-top: 15vw;
+			margin-left: 13vw;
+			margin-bottom: 15vw;
+			background-color: grey;
+			text-align: center;
+			line-height: 20vh;
+			font-size : 10vw;
+			border-radius: 5px;
+			
+		}
+		button {
+			padding: 20px;
+			border-radius: 10px;
+			font-weight: bolder;
+		}
+		#stp {
+			margin-left: 9vh;
+			margin-bottom: 2vh;
+		}
+		p{
+			font-weight: bold;
+		}
+		@media only screen and (min-width: 480px) {
+			#container {
+				height : 150%;
+			}
+			#bar {
+				margin: 15vh 0px 0px 50vh;
+				width: 50%;
+				height: 20vw;
+				line-height: 20vw;
+			}
+			#stp  {
+				margin-top: 5vh;
+				margin-left: 60vh;
+			}
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1> StopWatch </h1>
+	</header>
+	<div id="container">
+		<br>
+		<div id="bar">
+			<p id="clockBar"> 00:00:00 </p>
+		</div>
+		<button id="stp" onclick="swStop()">stop</button>
+		<button id="strt" onclick="swStart()">start</button>
+		<button id="rstrst" onclick="swReset()">reset</button>
+	</div>
+	<script> 
+		var hr=0,mn=0,sc=0;
+		var started=false,stopped=false;
+		//init();
+		function init() {
+			if (stopped) {
+				started=false
+				return;
+			}
+			started=true
+			hr=hr.toString();
+			mn=mn.toString();
+			sc=sc.toString();
+			
+			
+			if (hr.length<2) {
+				hr = '0'+hr
+			}
+			if (mn.length<2) {
+				mn = '0'+mn
+			}
+			if (sc.length<2) {
+				sc = '0'+sc
+			}
+			
+			document.getElementById('clockBar').innerHTML = hr+':'+mn+':'+sc;
+			stopwatch_cal();
+		}
+		function stopwatch_cal() {
+			hr = Number(hr);
+			mn = Number(mn);
+			sc = Number(sc);
+			setTimeout(() => {
+			 	if (++sc == 60) {
+			 		mn+=1;
+			 		sc=0;
+			 	}
+			 	if (mn == 60) {
+			 		hr+=1;
+			 		mn=0;
+			 	}
+			 	init();
+			},1000);
+		}
+		function swStart() {
+			stopped=false;
+			if(!started) init();
+		}
+		function swStop() {
+			stopped=true;
+		}
+		function swReset() {
+			hr=0,mn=0,sc=0;
+			document.getElementById('clockBar').innerHTML = '00:00:00';
+		}
+		
+	</script>
+</body>
+</html>
+<!--03-01-2021-->
