@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Age Calc</title>
+	<meta name="viewport" content="width= device-width initial-scale=1.0 ">
+	
+	<style>
+		*{
+			padding: 0px;
+			margin: 0px;
+			outline: none;
+		}
+		header {
+			width: 100%;
+			height: 65px;
+			background-color: #20211F;
+			line-height: 65px;
+			text-align: center;
+		}
+		h1 {
+			color: white;
+		}
+		p {
+			text-align: center;
+		}
+		div {
+			width: 100%;
+			height: 180px;
+			margin-top: 40px;
+			background-color: grey;
+		}
+		table {
+			display: inline;
+			border: none;
+			margin-left: 22px;
+			margin-top: 10vh;
+		}
+		caption {
+			color: black;
+			font-weight: bold;
+		}
+		td {
+			padding: 15px 30px 16px 30px;
+			color: white;
+			border-color: black;
+			background-color: blue;
+			font-weight: bold;
+			border-radius: 10px;
+		}
+		input {
+			caret-color: red;
+		}
+		#birth {
+			width: 80%;
+			height: 45px;
+			margin: 30px;
+			margin-top: 0px;
+			margin-bottom: 10px;
+			border-radius: 10px;
+			padding-left: 10px;
+		}
+		#current {
+			width: 80%;
+			height: 45px;
+			margin: 30px;
+			margin-bottom: 0px;
+			margin-top: 0px;
+			border-radius: 10px;
+			padding-left: 10px;
+		}
+		button {
+			width: 50px;
+			margin-left: 15px;
+			padding: 15px 35px 15px 35px;
+			border-radius: 10px;
+		}
+		#calButton {
+			width: 50%;
+			margin-left: 27vw;
+			margin-top: 100px;
+			padding: 10px;
+			background-color: #173458;
+			border-radius: 10px;
+			padding: 10px 40px 10px 40px;
+			font-weight: bold;
+			color: white;
+			font-size: 20px;
+			outline: none;
+		}
+		#ryear,#rmonth,#rday {
+			width: 67px;
+			height: 30px;;
+			margin-left: 5px;
+			margin-top: 8px;
+			text-align: center;
+			border-radius: 10px;
+		}
+		#ryear {
+			margin-left: 65px;
+		}
+		#p2,#p3 {
+			display: inline;
+			margin-left: 30px;
+		}
+		#p1 {
+			display: inline;
+			margin-left: 75px;
+		}
+		#p3 {
+			margin-left: 32px;
+		}
+		@media only screen and (min-width: 480px) {
+			#ryear {
+				margin-left: 215px;
+			}
+			#p1 {
+				margin-left: 226px;
+			}
+		}
+	</style>
+
+</head>
+<body>
+	<header>
+		<h1> Age Calculator </h1>
+	</header>
+	<p style="margin-top: 25px">Birth-date</p>
+	<input id="birth" type="text" value="">
+	<p>Current-date</p>
+	<input id="current" type="text" value="">
+	<div>
+		<br><br>
+		<p id="p1"> years </p>
+		<p id="p2"> months </p>
+		<p id="p3"> days </p>
+		<br>
+		<input id="ryear">
+		<input id="rmonth">
+		<input id="rday">
+		
+	<button id="calButton" onclick="init()"> calculate </button>
+	</div>
+	
+	
+	<script>
+		var days=0,months=0,years=0;
+		var mnths_days = {'jan' : 31, 'feb': 28, 'mar': 31, 'apr':30, 'may': 31, 'jun':30, 'jul':31, 'aug':31, 'sep':30, 'oct':31, 'nov': 30, 'dec': 31}
+		var mnths=['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+		var date=0,mnthsIndx,yearsIndx;
+		var list,b_d,b_m,b_y,c_d,c_m,c_y;
+		
+		var d = new Date();
+		document.getElementById('birth').placeholder = "16-12-1971";
+		date= (d.getDate().length == 1)? d.getDate():'0'+d.getDate();
+		document.getElementById('current').placeholder = date+'-'+d.getMonth()+1+'-'+d.getFullYear();
+		
+		function init() {
+			//initializing_birth-Date
+			if(document.getElementById('birth').value == "") {
+				list = document.getElementById('birth').placeholder.split('-');
+			}
+			else {
+				list = document.getElementById('birth').value.split('-');
+			}
+			b_d=list[0],b_m=list[1],b_y=list[2];
+			
+			//initialinzing_current-Date
+			if (document.getElementById('current').value == "") {
+				list = document.getElementById('current').placeholder.split('-');
+			}
+			else {
+				list = document.getElementById('current').value.split('-');
+			}
+			c_d=list[0],c_m=list[1],c_y=list[2];
+			
+			//invoking_the_aCalculator
+			cal_age(Number(b_d),Number(b_m),Number(b_y),Number(c_d),Number(c_m),Number(c_y));
+				
+			days=0;months=0;years=0;
+			
+		} 
+		
+		//cal_age(20,07,2003,4,1,2021);
+		function leapYear(y) {return !(y%4);}
+		function cal_age(bd,bm,by,td,tm,ty) {
+			date = bd;
+			mnthsIndx = bm;
+			yearsIndx = by;
+			
+			if (by>ty || ((by == ty) && (bm>tm)) || ((by == ty) && (bm == tm) && (bd>td))) {
+				alert('you haven\'t born yet!');
+				return;
+			}
+			//alert(mnths_days[mnths[mnthsIndx-1]])
+			while(1) {
+				if (leapYear(yearsIndx)) {
+					mnths_days['feb'] = 29;
+				}
+				if (bd==td && bm==tm && by==ty) {
+					alert('Welcome on earth!');
+					break;
+				}
+				days+=1;
+				if (++date > mnths_days[mnths[mnthsIndx-1]]) {
+					date = 1;
+					mnthsIndx+=1
+					if (mnthsIndx >12) {
+						mnthsIndx = 1;
+						yearsIndx+=1;
+					}
+					
+				}
+				if (date == bd) {
+					days=0;
+					months+=1;
+				}
+				if (mnthsIndx == bm && date == bd) {
+					years+=1;
+					
+				}
+				if (date == td && mnthsIndx == tm && yearsIndx == ty) {
+					break;
+				}
+			}
+			document.getElementById('ryear').value = years;
+			document.getElementById('rmonth').value = months%12;
+			document.getElementById('rday').value = days;
+		}
+		
+	</script>
+</body>
+</html>
+<!-- 06-01-2021 with failure of first week of 2020-->
