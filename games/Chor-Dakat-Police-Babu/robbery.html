@@ -1,0 +1,374 @@
+<html>
+<head>
+	<title> Robbrey </title>
+	<meta >
+	<style>
+		*{
+			margin: 0px;
+			outline: none;
+		}
+		body {
+			background-color: lightgrey;
+		}
+		header {
+			background-color: #1E1E1E;
+			color: #fff;
+			text-align: center;
+			width: 100%;
+			height: 10vh;
+			line-height:10vh;
+		}
+		.tbl {
+			margin-left: 12vh;
+			margin-top: 5vw;
+			background-color: #505050;
+		}
+		#userInfo {
+			background-color: #404040;
+			width: 260px;
+			height: 320px;
+			margin-left: 50px;
+			margin-top: 5vw;
+			border-radius: 7px;
+		}
+		input {
+			margin-left: 19px;
+			margin-top: 28px;
+			width: 85%;
+			height: 10vw;
+			padding: 20px;
+			border-radius: 10px;
+			font-weight: bolder;
+		}
+		#gStrt,#bk {
+			margin-left: 51px;
+			margin-top: 2px;
+			margin-bottom: 5px;
+			background-color: #30303A;
+			width: 259px;
+			height: 40px;
+			text-align: center;
+			line-height: 40px;
+			color: white;
+			font-weight: bolder;
+		}
+		#bk {
+			border-radius: 10px;
+			line-height: 23px;
+		}
+		.tbl td {
+			width: 15vh;
+			height: 15vh;
+			text-align: center;
+			line-height: 15vh;
+			padding: 10px;
+			background-color: powderblue;
+			border-radius: 6px;
+		}
+		#nxt,#finish {
+			width: 30vh;
+			height: 0vh;
+			padding: 0px;
+			border-radius: 5px;
+			background-color: #303030;
+			color: white;
+		}
+		#rslt {
+			width: 100%;
+		}
+		#rslt th {
+			background-color: grey;
+			width: 15vh;
+			tect-align: center;
+		}
+		#rslt td {
+			width: 15vh;
+			text-align: center;
+		}
+		
+		@media only screen and (min-width: 480px) {
+			body {
+				background-color: lightgrey;
+			}
+			header {
+				background-color: #1E1E1E;
+				color: #fff;
+				text-align: center;
+				width: 100%;
+				height: 10vh;
+				line-height:10vh;
+			}
+			.tbl {
+				margin-left: 12vh;
+				margin-top: 5vw;
+				background-color: #505050;
+			}
+			#userInfo {
+				background-color: #404040;
+				width: 260px;
+				height: 320px;
+				margin-left: 198px;
+				margin-top: 5vw;
+				border-radius: 7px;
+			}
+			input {
+				margin-left: 19px;
+				margin-top: 28px;
+				width: 85%;
+				height: 10vh;
+				padding: 20px;
+				border-radius: 10px;
+				font-weight: bolder;
+			}
+			#gStrt,#bk {
+				margin-left: 199px;
+				margin-top: 2px;
+				margin-bottom: 5px;
+				background-color: #30303A;
+				width: 259px;
+				height: 40px;
+				text-align: center;
+				line-height: 40px;
+				color: white;
+				font-weight: bolder;
+			}
+			#bk {
+				border-radius: 10px;
+				line-height: 23px;
+			}
+			.tbl {
+				margin-left: 200px;
+			}
+			.tbl td {
+				width: 15vw;
+				height: 15vw;
+				text-align: center;
+				line-height: 15vw;
+				padding: 10px;
+				background-color: powderblue;
+				border-radius: 6px;
+			}
+			#nxt,#finish {
+				width: 30vw;
+				height: 0vh;
+				padding: 0px;
+				border-radius: 5px;
+				background-color: #303030;
+				color: white;
+			}
+			#rslt {
+				width: 100%;
+			}
+			#rslt th {
+				background-color: grey;
+				width: 26vw;
+				tect-align: center;
+			}
+			#rslt td {
+				width: 26vw;
+				text-align: center;
+			}
+		}
+	</style>
+</head>
+<body id="bdy">
+	<!-- 12:47 -->
+	<!--p id="demo"> Hello World! </p-->
+	<header onclick="show()">
+		<h1> Robbery </h1>
+	</header>
+	
+	
+	<div id="userInfo">
+		<input id="user1" placeholder="Player 1"  value="Player-1">
+		<input id="user2" placeholder="Player 2"  value="player-2">
+		<input id="user3" placeholder="Player 3"  value="Player-3">
+		<input id="user4" placeholder="player 4"  value="Player-4">
+	</div>
+	<div id="gStrt" onclick="init()"> 
+		play
+	</div>
+	
+	
+	
+	<table class="tbl" id="tbl" border="1" cellspacing="8"> 
+		<tr>
+			<td id="nxt" colspan="2" onclick="play()">start</td>
+		</tr>
+		<tr>
+			<td id="player0" onclick="fin(0)"> 1 </td>
+			<td id="player1" onclick="fin(1)"> 2 </td>
+		</tr>
+		<tr>
+			<td id="player2" onclick="fin(2)" > 3 </td>
+			<td id="player3" onclick="fin(3)"> 4 </td>
+		</tr>
+		<tr>
+			<td id="finish" colspan="2" ondblclick="finishIt()"> finish </td>
+		</tr>
+		
+		
+		<table id="rslt" border="1" >
+			<button id="bk" onclick="init2()"> back </button>
+		</table>
+		
+		<audio id="clickSound">
+			<source src="../../media/audios/button-16.mp3" type="audio/mp3">
+		</audio>
+	<script>
+		var v1,v2,v3,v4;
+		var cols= ['blue','green','red','black'];
+		var scrIndx= [0,0,0,0];
+		var rands = [0,0,0,0];
+		var over=0;
+		var marks = [0,0,0,0]
+		var finished=0,started=0,gStarted=0;
+		
+		document.getElementById('tbl').style.display = 'none';
+		document.getElementById('bk').style.display = 'none';
+		function init() {
+			gStarted=1;
+			document.getElementById('rslt').style.display = 'none';
+			
+			document.getElementById('player0').innerHTML = document.getElementById('user1').value;
+			document.getElementById('player1').innerHTML = document.getElementById('user2').value;
+			document.getElementById('player2').innerHTML = document.getElementById('user3').value;
+			document.getElementById('player3').innerHTML = document.getElementById('user4').value;
+			document.getElementById('userInfo').style.display = 'none';
+			document.getElementById('gStrt').style.display = 'none';
+			document.getElementById('tbl').style.display = 'block';
+			document.getElementById('tbl').style.width = "230px";
+			
+			document.getElementById('rslt').innerHTML += `<tr> <th>${document.getElementById('user1').value} </th>
+			<th>${document.getElementById('user2').value} </th>
+			<th>${document.getElementById('user3').value} </th>
+			<th>${document.getElementById('user4').value} </th> </tr>` ;
+			
+			
+		}
+		function init2() {
+		
+			document.getElementById('rslt').style.display = 'none';
+			document.getElementById('bk').style.display = 'none';
+			
+			document.getElementById('userInfo').style.display = 'none';
+			document.getElementById('gStrt').style.display = 'none';
+			document.getElementById('tbl').style.display = 'block';
+			document.getElementById('tbl').style.width = "230px";
+		
+		
+		}
+		
+		
+		function fin(n) {
+			if(finished) {
+				return;
+			}
+			if(!started) {
+				return;
+			}
+			
+			music();
+			over=0;
+			scrIndx[rands[0]] = 100;
+			scrIndx[rands[3]] = 60;
+			marks[rands[0]]+=100;
+			marks[rands[3]]+=60;
+			
+			if (rands[2] == n) {
+				scrIndx[rands[1]] = 80;
+				scrIndx[rands[2]] = 0;
+				marks[rands[1]]+=80;
+				marks[rands[2]]+=0;
+				id = 'player'+rands[2];
+				document.getElementById(id).style.backgroundColor = cols[2];
+			}
+			else if(rands[3] == n) {
+				scrIndx[rands[1]] = 0;
+				scrIndx[rands[2]] = 80;
+				marks[rands[1]]+=0;
+				marks[rands[2]]+=80;
+				id = 'player'+rands[2];
+				document.getElementById(id).style.backgroundColor = cols[2];
+			}
+			else {
+				return;
+			}
+			
+			document.getElementById('rslt').innerHTML += `<tr>	<td>${scrIndx[0]}</td>
+																<td>${scrIndx[1]}</td>
+																<td>${scrIndx[2]}</td>
+																<td>${scrIndx[3]}</td>	</tr>`;
+		}
+		
+		function show() {
+			if(!gStarted){return};
+			document.getElementById('rslt').style.display = 'block';
+			document.getElementById('bk').style.display = 'block';
+			document.getElementById('tbl').style.display = 'none';
+		}
+		function play() {
+			started = 1;
+			var rand,boolT=0;
+			if (over) {
+				return;
+			}
+			if (finished) {
+				return;
+			}
+			over=1;
+			document.getElementById('player0').style.backgroundColor = 'powderblue';
+			document.getElementById('player1').style.backgroundColor = 'powderblue';
+			document.getElementById('player2').style.backgroundColor = 'powderblue';
+			document.getElementById('player3').style.backgroundColor = 'powderblue';
+			
+			
+			setTimeout(() => {
+			document.getElementById('nxt').innerHTML = 'next';
+			
+			for (var i=0;i<4;i++) {
+				for (var k=0;k<100;k++) {
+					boolT = 1;
+					rand = (Math.random()*4).toString()[0];
+					//alert('rand : '+rand);
+					for (var j=0;j<i;j++) {
+						if (rands[j] == rand) {
+							boolT = 0;
+							break;
+						}
+					}
+					//alert(boolT);
+					if(boolT) {
+						rands[i] = rand;
+						//alert('i : '+i);
+						//alert('rands[i] : '+rands[i]);
+						break;
+					}
+				}
+			}
+			var id;
+			for (var i=0;i<2;i++) {
+				id = 'player'+rands[i];
+				document.getElementById(id).style.backgroundColor = cols[i];
+				
+			}
+			},1000);
+		}
+		
+		function music() {
+			document.getElementById('clickSound').play();
+		}
+		
+		function finishIt() {
+			if(finished){return};
+			if(!started){return};
+			document.getElementById('rslt').innerHTML += `<tr> <th>${marks[0]} </th>
+			<th> ${marks[1]} </th>
+			<th> ${marks[2]}</th>
+			<th> ${marks[3]}</th> </tr>` ;
+			finished = 1;
+		}
+	</script>
+</body>
+</html>
+<!--14-01-2021_02:32PM-->
