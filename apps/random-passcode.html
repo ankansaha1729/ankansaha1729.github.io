@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title> Webb </title>
+	<meta name="viewport" content="width=device-width initial-scale=1.0 ">
+	<style>
+		*{
+			outline: none;
+			padding: 0px;
+		}
+		#slida {
+			width: 90%;
+			border-radius: 100px;
+			
+		}
+		#box {
+			display: flex;
+			width: 90%;
+			background-color: #1a3b30;
+			margin-top: 15px;
+			margin-left: 5%;
+			border-radius: 20px;
+		}
+		.container {
+			background-color: #212121;
+			padding: 1px;
+			border-radius: 5px;
+		}
+		p {
+			margin-left: 10px;
+			color: #18c285;
+		}
+		#mVal {
+			margin-right: 10px;
+		}
+		
+		input[type="checkbox"] {
+			height: 18px;
+			width: 25px;
+			appearance: none;
+			border-radius: 20px;
+		}
+		input {
+			display: inline;
+		}
+		label {
+			display: flex;
+			height: 100px;
+			color: #18c384;
+			height: 55px;
+			margin-left: 18%;
+			font-size: 20px;
+			
+		}
+		#gen {
+			margin-top: 2px;
+			margin-bottom: 5px;
+			background-color: #30303f;
+			width: 99%;
+			height: 40px;
+			text-align: center;
+			line-height: 40px;
+			color: white;
+			font-weight: bolder;
+		}
+		#board {
+			text-align: center;
+			height: 100px;
+			line-height: 100px;
+			font-size: 14px;
+		}
+	</style>
+</head>
+<body>
+	<p id="board"> </p>
+	
+	<div id="gen" onclick="gen()"> Generate </div>
+	<div class="container" >
+		<div id="box" >
+			<p id="mVal"> 0 </p>
+			<input oninput="val()" id="slida" type="range" min="0" max="32" value="8">
+			<p id="MVal"> </p>
+			
+		</div>
+		<br><br>
+		
+		
+		<label for="upper">
+			<input id="upper" type="checkbox" checked>
+			&nbspInclude Upper
+		</label>
+		<label for="lower">
+			<input id="lower" type="checkbox" checked>
+			&nbspInclude Lower
+		</label>
+		<label for="number">
+			<input id="number" type="checkbox" checked>
+			&nbspNumber
+		</label>
+		<label for="special">
+			<input id="special" type="checkbox" checked>
+			&nbspSpecial Character
+		</label>
+		
+	</div>
+	<script>
+		var slider = document.getElementById('slida');
+		var valShower = document.getElementById('MVal');
+		var str1;
+		
+		
+		
+		str1 = slider.value
+		if (str1.length == 1){str1='0'+str1;}
+		valShower.innerHTML = str1;
+		
+		function val() {
+			str1 = slider.value
+			if (str1.length == 1){str1='0'+str1;}
+			valShower.innerHTML = str1;
+		}
+		
+		function len(str) {
+			var count=0,strl = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-*/!:;@(){}[]<>^_";
+			for (c of str) {
+				for (c1 of strl) {
+					if (c == c1) {
+						count+=1;
+						break;
+					}
+				}
+			}
+			return count;
+		}
+		
+		function gen() {
+			var upper= document.getElementById('upper');
+			var lower= document.getElementById('lower');
+			var number= document.getElementById('number');
+			var special= document.getElementById('special');
+			
+			var str="";
+			var pass="";
+			if (upper.checked) {
+				str+= "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			}
+			if (lower.checked) {
+				str+= "abcdefghijklmnopqrstuvwxyz";
+			}
+			if (number.checked) {
+				str+= "0123456789";
+			}
+			if (special.checked) {
+				str+= "+-*/!:;";
+			}
+			if(str == "") {
+				return;
+			}
+			var indx;
+			
+			while (1) {
+				indx= (Math.random()*(str.length-1)).toFixed(0);
+				pass+= str[indx];
+				if (len(pass) == str1) {
+					if (len(pass) < str1) {alert(len(pass))}
+					break;
+				}
+			}
+			document.getElementById('board').innerHTML = pass;
+			
+		}
+	</script>
+	
+</body>
+</html>
