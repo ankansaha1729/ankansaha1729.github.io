@@ -36,10 +36,16 @@
 			font-weight: bold;
 			display: block;
 			margin-top: 10px;
+			cursor: pointer;
 			font-family: 'Mina', sans-serif
 		}
 		details summary {
 			outline: none;
+			cursor: pointer;
+		}
+		details:hover {
+			color: red;
+			font-size: 20px
 		}
 		details.lctr {
 			margin: 5px;
@@ -58,6 +64,11 @@
 		@media only screen and (min-width: 480px) {
 			header {
 				height: 12vw;
+			}
+		}
+		@media only screen and (min-width: 980px) {
+			header {
+				height: 5.5vw;
 			}
 		}
 	</style>
