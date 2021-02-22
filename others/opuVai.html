@@ -49,11 +49,12 @@
 		}
 		details.lctr {
 			margin: 5px;
+                        margin-left: -60%;
 			padding: 20px;
 			border: 1px dotted #121212;
 			border-style: none dashed solid none;
 			border-radius: 9px;
-			transition: 2s;
+			transition: 1s;
 			max-height: 25px;
 			overflow: hidden;
 		}
@@ -90,7 +91,7 @@
 	<summary> পদার্থবিজ্ঞান প্রস্তুতি পর্ব</summary>
 	<a href="https://youtube.com/playlist?list=PLctDpDSJddXISZds6HRrtkZphnb2Fo3Tw"> YouTube PlayList </a>
 	</details>
-	<details class="lctr">
+	<details id="lctr1" class="lctr">
 	<summary> ভৌতজগৎ ও পরিমাপ  </summary>
 	<a href="https://www.facebook.com/groups/2393681520930459/permalink/2484367691861841/"> Lecture-1.01 </a>
 	<a href="https://www.facebook.com/groups/2393681520930459/permalink/2486041528361124/"> Lecture-1.02 </a>
@@ -102,13 +103,13 @@
 	<a href="https://www.facebook.com/groups/2393681520930459/permalink/2495996010699009/"> Lecture-1.08 </a>
 	</details>
 	
-	<details class="lctr">
+	<details id="lctr2" class="lctr">
 	<summary> ভেক্টর </summary>
 	<a href="https://youtube.com/playlist?list=PLctDpDSJddXIxrVvwoRzwOCbWeHgkfPWk"> YouTube PlayList </a>
 	</details>
 	
 	
-	<details class="lctr">
+	<details id="lctr3" class="lctr">
 	<summary> গতিবিদ্যা </summary>
 	<a href="https://www.facebook.com/groups/2393681520930459/permalink/2508093349489275/"> Lecture-3.01 </a>
 	<a href="https://www.facebook.com/groups/2393681520930459/permalink/2512208959077714/"> Lecture-3.02 </a>
@@ -123,7 +124,7 @@
 	</details>
 	
 	
-	<details class="lctr">
+	<details id="lctr4" class="lctr">
 	<summary> নিউটনীয়ান বলবিদ্যা </summary>
 	<a href="https://www.facebook.com/groups/2393681520930459/permalink/2568014163497193/"> Lecture-4.01 </a>
 	<a href="https://www.facebook.com/groups/2393681520930459/permalink/2568016600163616/"> Lecture-4.02 </a>
@@ -142,7 +143,7 @@
 	<a href="https://www.facebook.com/groups/2393681520930459/permalink/2582443015387641/"> Lecture-4.15 </a>
 	</details>
 	
-	<details class="lctr">
+	<details id="lctr5" class="lctr">
 	<summary> কাজ ক্ষমতা শক্তি  </summary>
 	<a href="https://www.facebook.com/groups/2393681520930459/permalink/2537266583238618/"> Lecture-5.01 </a>
 	<a href="https://www.facebook.com/groups/2393681520930459/permalink/2538502123115064/"> Lecture-5.02 </a>
@@ -156,7 +157,7 @@
 	<a href="https://www.facebook.com/groups/2393681520930459/permalink/2556666771298599/"> Lecture-5.10 </a>
 	</details>
 
-	<details class="lctr">
+	<details id="lctr6" class="lctr">
 		<summary>মহাকর্ষ ও অভিকর্ষ</summary>
 			<a href="https://www.facebook.com/100007498324406/videos/3039852649607983/">Lecture-6.01</a>
 			<!--a href="">Lecture-6.02</a>
@@ -169,6 +170,39 @@
 			<a href="">Lecture-6.09</a>
 			<a 6.href="">Lecture-10</a-->
 	</details>
+
+        <script>
+		var elm1= document.getElementById('lctr1');
+		var elm2= document.getElementById('lctr2');
+		var elm3= document.getElementById('lctr3');
+		var elm4= document.getElementById('lctr4');
+		var elm5= document.getElementById('lctr5');
+		var elm6= document.getElementById('lctr6');
+		var elm7= document.getElementById('lctr7');
+		
+		
+		setTimeout(() => {
+		elm1.style.marginLeft = "5px";
+		setTimeout(() => {
+				elm2.style.marginLeft = "5px";
+				setTimeout(() => {
+					elm3.style.marginLeft = "5px";
+					setTimeout(() => {
+						elm4.style.marginLeft = "5px";
+						setTimeout(() => {
+							elm5.style.marginLeft = "5px";
+							setTimeout(() => {
+								elm6.style.marginLeft = "5px";
+								setTimeout(() => {
+									elm7.style.marginLeft = "5px";
+								},100);
+							},100);
+						},100);
+					},100);
+				},100);
+		},100);
+		},10);
+		setTimeout(()=>{},100);
 	
 </body>
 </html>
