@@ -2,7 +2,7 @@
 
 <html>
 <head>
-	<title> Sudoku Solver </title>
+	<title> Solve Sudoku </title>
 	<meta name="viewport" content="width= device-width initial-scale= 1.0 ">
 	<link href="https://fonts.googleapis.com/css2?family=Stick&display=swap" rel="stylesheet">
 	
@@ -16,7 +16,7 @@
 			font-size: 41px;
 			margin-bottom: 0px;
 			font-family: 'Stick', sans-sarif;
-			margin-left: 10vw;
+			margin-left: 28vw;
 		}
 		hr {
 			/*margin-top: 0px;*/
@@ -38,7 +38,7 @@
 			margin: 11vw;
 			margin-top: 2.5vh;
 			margin-bottom: 1vh;
-			background-color: #d67e01;
+			background-color: #D67E01;
 			height: 10vh;
 			text-align: center;
 			line-height: 10vh;
@@ -50,25 +50,31 @@
 		
 		@media only screen and (min-width: 480px) {
 			h1 {
-				margin-left: 27vw;
+				margin-left: 37vw;
 			}
-		
+			
 			table {
 				margin-left: 28%;
 			}
 			tr td {
 				width: 10vh;
 				height: 10vh;
+				text-align: center;
+				outline: none;
+				border-radius: 1px;
+				background-color: #e8ff27;
 			}
 			div {
 				margin-left: 31%;
 				width: 90vh;
 			}
 		}
+		
 	</style>
 </head>
 <body style="background-color: lightgrey">
-	<p id="demo" align="center"> <h1 ondblclick="clearSudoku()"> <u> sudoku</u> <u> solver </u> </h1> </p><hr>
+	<p id="demo" align="center"> <h1 ondblclick="clearSudoku()" > <ins> sudoku </ins>
+	</h1> </p><hr>
 	
 	<table border="1">
 		<tr>
@@ -174,8 +180,19 @@
 		
 	</table><hr >
 	
-	<div onclick="callSolve()"> Solve </div>
+	<div id="accessor" onclick="callStart()"> Play </div>
 	<script>
+		var grid2 = [
+						[' ',' ',' ','4','5','6','7','8','9'],
+						['4','5','6','7','8','9','1','2','3'],
+						['7','8','9',' ',' ',' ','4','5','6'],
+						['2','1','4','3','6','5','8','9','7'],
+						['3','6','5','8','9','7','2','1','4'],
+						['8','9','7','2','1','4','3','6','5'],
+						[' ',' ',' ','6','4','2','9','7','8'],
+						['6','4','2','9','7','8','5','3',' '],
+						['9','7','8','5','3','1','6',' ',''],
+				];
 		var grid = [
 						['','','','','','','','',''],
 						['','','','','','','','',''],
@@ -186,56 +203,121 @@
 						['','','','','','','','',''],
 						['','','','','','','','',''],
 						['','','','','','','','',''],
-				];
-		var i,j,id,n=9;
+		];
+				
+		var indx1,indx2;
+		var nums = [1,9,3,4,5,8,6,7,9];
+		var aBool=1;
+		var funcCall = 0;
 		
-		function callSolve() {
-			for (var i=0;i<9;i++) {
-				for (var j=0;j<9;j++) {
-					id = String(i)+String(j);
-					document.getElementById(id).style.backgroundColor = '#e8ff27';
-				}
-			}
 		
-			for (var i=0;i<9;i++) {
-				for (var j=0;j<9;j++) {
-					id = String(i)+String(j);
-					grid[i][j] = document.getElementById(id).innerHTML;
-				}
+		function callStart() {
+			if (aBool) {
+				start();
+				aBool = 0;
+				document.getElementById('accessor').innerHTML = "submit";
 			}
-			
-			
-			//check correct input
+			else {
+				alert(checkWin());
+			}
+		}
+		function fill() {
 			for (var i=0;i<9;i++) {
 				for (var j=0;j<9;j++) {
-					if (grid[i][j] == 0) {
-						continue;
+					var id = String(i)+String(j);
+					var num = String(document.getElementById(id).innerHTML);
+					if (num == ' ' || num == '') {
+						grid[i][j] = 0;
 					}
 					else {
-						if (isSafe(grid,i,j,grid[i][j]) == 0) {
-							alert('incorrect input');
-							return;
+						grid[i][j] = Number(num);
+					}
+				}
+			}
+		}
+		
+		function checkWin() {
+			fill();
+			alert(grid);
+			for (var i=0;i<9;i++) {
+				for (var j=0;j<9;j++) {
+					//alert(grid);
+					//alert(grid[0][0] == 0);
+					if (grid[i][j] == 0) {
+						alert(i);
+						alert(j);
+						return 0;
+					}
+					if (isSafe(grid,i,j,grid[i][j]) == 0) {
+						return 2;
+					}
+				}
+			}
+			return 1;
+		}
+		
+		
+		function dTransfer2() {
+			for (var e=0;e<9;e++) {
+				for (var f=0;f<9;f++) {
+					grid2[e][f] = grid[e][f];
+				}
+			}
+		}
+		
+		function dTransfer1() {
+			for (var e=0;e<9;e++) {
+				for (var f=0;f<9;f++) {
+					grid[e][f] = grid2[e][f];
+				}
+			}
+		}
+		
+		function gridI() {
+			for (var g=0;g<9;g++) {
+				for (var h=0;h<9;h++) {
+					grid[g][h] = '';
+				}
+			}
+		}
+		
+		
+		function start() {
+			var num,indx,indx1,indx2;
+			var hard = [0,0,1,0,0,1,0,1];
+			var mid = [1,0,1,0,1,0,1,0];
+			var easy = [1,1,0,1,0,1,0,1];
+			
+			var bool = mid;
+			//funcCall++;
+			print(grid);
+			
+			for (var n=0;n<21;n++) {
+				indx1 = Math.floor(Math.random()*9);
+				indx2 = Math.floor(Math.random()*9);
+				num = Math.floor(Math.random()*9)+1;
+				
+				if (isSafe(grid,indx1,indx2,num)) {
+					grid[indx1][indx2] = num;
+				}
+				
+			}
+			if (solveSudoku(grid,0,0) == 1) {
+				for (var k=0;k<9;k++) {
+					for (var l=0;l<9;l++) {
+						indx = Math.floor(Math.random()*8);
+						if (bool[indx] == 0) {
+							grid[k][l] = 0;
 						}
 					}
 				}
-			}
-		
-			for (var i=0;i<9;i++) {
-				for (var j=0;j<9;j++) {
-					if (grid[i][j] == 0) {
-						id = String(i)+String(j);
-						document.getElementById(id).style.backgroundColor = '#c2d1d8';
-					}
-				}
-			}
-			
-			if (solveSudoku(grid,0,0) == 1) {
 				print(grid);
+				return ;
 			}
-			else {
-				alert("No solution exists for this sudoku");
-			}
+			gridI();
+			start();
 		}
+		
 		
 		
 		function isSafe(grid,row,col,num) {
@@ -265,11 +347,10 @@
 			return 1;
 		}
 		
-		
 		function solveSudoku(grid,row,col) {
 			if (col == 9) {
 				if (row == 8) {
-					return 1;
+				return 1;
 				}
 				row++;
 				col=0;
@@ -289,11 +370,16 @@
 			return 0;
 		}
 		
+		
 		function print(grid) {
 			for (var i=0;i<9;i++) {
 				for (var j=0;j<9;j++) {
 					id = String(i)+String(j);
-					document.getElementById(id).innerHTML= grid[i][j];
+					if (grid[i][j] != 0){
+						document.getElementById(id).innerHTML= grid[i][j];
+						document.getElementById(id).style.backgroundColor = '#c2d1d8';
+						document.getElementById(id).contentEditable = false;
+					}
 				}
 			}
 		}
@@ -304,16 +390,8 @@
 					grid[i][j] = '';
 				}
 			}
-			for (var i=0;i<9;i++) {
-				for (var j=0;j<9;j++) {
-					id = String(i)+String(j);
-					document.getElementById(id).style.backgroundColor = '#e8ff27';
-				}
-			}
-			print(grid);
 		}
 	</script>
 </body>
 </html>
-
-<!--12:23_01-04-2021-->
+<!-- uppr>sare_baro 01-04-2021-->
