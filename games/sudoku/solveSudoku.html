@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title> Sudoku Solver </title>
+	<meta name="viewport" content="width= device-width initial-scale= 1.0 ">
+	<link href="https://fonts.googleapis.com/css2?family=Stick&display=swap" rel="stylesheet">
+	
+	<meta >
+	
+	<style>
+		*{
+			padding: 0px;
+		}
+		h1 {
+			font-size: 41px;
+			margin-bottom: 0px;
+			font-family: 'Stick', sans-sarif;
+			margin-left: 10vw;
+		}
+		hr {
+			/*margin-top: 0px;*/
+		}
+		tr td {
+			width: 10vw;
+			height: 10vw;
+			text-align: center;
+			outline: none;
+			border-radius: 1px;
+			background-color: #e8ff27;
+		}
+		table {
+			border-radius: -0px;
+			background-color: #2cccea;
+		}
+		
+		div {
+			margin: 11vw;
+			margin-top: 2.5vh;
+			margin-bottom: 1vh;
+			background-color: #d67e01;
+			height: 10vh;
+			text-align: center;
+			line-height: 10vh;
+			border-radius: 3px;
+			font-size: 5vh;
+			font-weight: bold;
+			
+		}
+		
+		@media only screen and (min-width: 480px) {
+			h1 {
+				margin-left: 27vw;
+			}
+		
+			table {
+				margin-left: 28%;
+			}
+			tr td {
+				width: 10vh;
+				height: 10vh;
+			}
+			div {
+				margin-left: 31%;
+				width: 90vh;
+			}
+		}
+	</style>
+</head>
+<body style="background-color: lightgrey">
+	<p id="demo" align="center"> <h1 ondblclick="clearSudoku()"> <u> sudoku</u> <u> solver </u> </h1> </p><hr>
+	
+	<table border="1">
+		<tr>
+			<td id="00" contenteditable style="border-radius: 10px 0 0 0">  </td>
+			<td id="01" contenteditable> </td>
+			<td id="02" contenteditable style="border-radius: 0 10px 0 0"> </td>
+			<td id="03" contenteditable style="border-radius: 10px 0 0 0"> </td>
+			<td id="04" contenteditable> </td>
+			<td id="05" contenteditable style="border-radius: 0 10px 0 0"> </td>
+			<td id="06" contenteditable style="border-radius: 10px 0 0 0"> </td>
+			<td id="07" contenteditable> </td>
+			<td id="08" contenteditable style="border-radius: 0 10px 0 0"> </td>
+		</tr>
+		<tr>
+			<td id="10" contenteditable>  </td>
+			<td id="11" contenteditable> </td>
+			<td id="12" contenteditable> </td>
+			<td id="13" contenteditable> </td>
+			<td id="14" contenteditable> </td>
+			<td id="15" contenteditable> </td>
+			<td id="16" contenteditable> </td>
+			<td id="17" contenteditable> </td>
+			<td id="18" contenteditable> </td>
+		</tr>
+		<tr>
+			<td id="20" contenteditable style="border-radius: 0 0 0 10px">  </td>
+			<td id="21" contenteditable> </td>
+			<td id="22" contenteditable style="border-radius: 0 0 10px 0"> </td>
+			<td id="23" contenteditable style="border-radius: 0 0 0 10px"> </td>
+			<td id="24" contenteditable> </td>
+			<td id="25" contenteditable style="border-radius: 0 0 10px 0"> </td>
+			<td id="26" contenteditable style="border-radius: 0 0 0 10px"> </td>
+			<td id="27" contenteditable> </td>
+			<td id="28" contenteditable style="border-radius: 0 0 10px 0"> </td>
+		</tr>
+		<tr>
+			<td id="30" contenteditable style="border-radius: 10px 0 0 0">  </td>
+			<td id="31" contenteditable> </td>
+			<td id="32" contenteditable style="border-radius: 0 10px 0 0"> </td>
+			<td id="33" contenteditable style="border-radius: 10px 0 0 0"> </td>
+			<td id="34" contenteditable> </td>
+			<td id="35" contenteditable style="border-radius: 0 10px 0 0"> </td>
+			<td id="36" contenteditable style="border-radius: 10px 0 0 0"> </td>
+			<td id="37" contenteditable> </td>
+			<td id="38" contenteditable style="border-radius: 0 10px 0 0"> </td>
+		</tr>
+		<tr>
+			<td id="40" contenteditable>  </td>
+			<td id="41" contenteditable> </td>
+			<td id="42" contenteditable> </td>
+			<td id="43" contenteditable> </td>
+			<td id="44" contenteditable> </td>
+			<td id="45" contenteditable> </td>
+			<td id="46" contenteditable> </td>
+			<td id="47" contenteditable> </td>
+			<td id="48" contenteditable> </td>
+		</tr>
+		<tr>
+			<td id="50" contenteditable style="border-radius: 0 0 0 10px">  </td>
+			<td id="51" contenteditable> </td>
+			<td id="52" contenteditable style="border-radius: 0 0 10px 0"> </td>
+			<td id="53" contenteditable style="border-radius: 0 0 0 10px"> </td>
+			<td id="54" contenteditable> </td>
+			<td id="55" contenteditable style="border-radius: 0 0 10px 0"> </td>
+			<td id="56" contenteditable style="border-radius: 0 0 0 10px"> </td>
+			<td id="57" contenteditable> </td>
+			<td id="58" contenteditable style="border-radius: 0 0 10px 0"> </td>
+		</tr>
+		<tr>
+			<td id="60" contenteditable style="border-radius: 10px 0 0 0">  </td>
+			<td id="61" contenteditable> </td>
+			<td id="62" contenteditable style="border-radius: 0 10px 0 0"> </td>
+			<td id="63" contenteditable style="border-radius: 10px 0 0 0"> </td>
+			<td id="64" contenteditable> </td>
+			<td id="65" contenteditable style="border-radius: 0 10px 0 0"> </td>
+			<td id="66" contenteditable style="border-radius: 10px 0 0 0"> </td>
+			<td id="67" contenteditable> </td>
+			<td id="68" contenteditable style="border-radius: 0 10px 0 0"> </td>
+		</tr>
+		<tr>
+			<td id="70" contenteditable>  </td>
+			<td id="71" contenteditable> </td>
+			<td id="72" contenteditable> </td>
+			<td id="73" contenteditable> </td>
+			<td id="74" contenteditable> </td>
+			<td id="75" contenteditable> </td>
+			<td id="76" contenteditable> </td>
+			<td id="77" contenteditable> </td>
+			<td id="78" contenteditable> </td>
+		</tr>
+		<tr>
+			<td id="80" contenteditable style="border-radius: 0 0 0 10px">  </td>
+			<td id="81" contenteditable> </td>
+			<td id="82" contenteditable style="border-radius: 0 0 10px 0"> </td>
+			<td id="83" contenteditable style="border-radius: 0 0 0 10px"> </td>
+			<td id="84" contenteditable> </td>
+			<td id="85" contenteditable style="border-radius: 0 0 10px 0"> </td>
+			<td id="86" contenteditable style="border-radius: 0 0 0 10px"> </td>
+			<td id="87" contenteditable> </td>
+			<td id="88" contenteditable style="border-radius: 0 0 10px 0"> </td>
+			
+		</tr>
+		
+	</table><hr >
+	
+	<div onclick="callSolve()"> Solve </div>
+	<script>
+		var grid = [
+						['','','','','','','','',''],
+						['','','','','','','','',''],
+						['','','','','','','','',''],
+						['','','','','','','','',''],
+						['','','','','','','','',''],
+						['','','','','','','','',''],
+						['','','','','','','','',''],
+						['','','','','','','','',''],
+						['','','','','','','','',''],
+				];
+		var i,j,id,n=9;
+		
+		function callSolve() {
+			for (var i=0;i<9;i++) {
+				for (var j=0;j<9;j++) {
+					id = String(i)+String(j);
+					document.getElementById(id).style.backgroundColor = '#e8ff27';
+				}
+			}
+		
+			for (var i=0;i<9;i++) {
+				for (var j=0;j<9;j++) {
+					id = String(i)+String(j);
+					grid[i][j] = document.getElementById(id).innerHTML;
+				}
+			}
+			
+			
+			//check correct input
+			for (var i=0;i<9;i++) {
+				for (var j=0;j<9;j++) {
+					if (grid[i][j] == 0) {
+						continue;
+					}
+					else {
+						if (isSafe(grid,i,j,grid[i][j]) == 0) {
+							alert('incorrect input');
+							return;
+						}
+					}
+				}
+			}
+		
+			for (var i=0;i<9;i++) {
+				for (var j=0;j<9;j++) {
+					if (grid[i][j] == 0) {
+						id = String(i)+String(j);
+						document.getElementById(id).style.backgroundColor = '#c2d1d8';
+					}
+				}
+			}
+			
+			if (solveSudoku(grid,0,0) == 1) {
+				print(grid);
+			}
+			else {
+				alert("No solution exists for this sudoku");
+			}
+		}
+		
+		
+		function isSafe(grid,row,col,num) {
+			var p,q;
+			for (var p=0;p<=8;p++) {
+				if (grid[row][p] == num && p!=col) {
+					return 0;
+				}
+			}
+			
+			for (var q=0;q<=8;q++) {
+				if (grid[q][col] == num && q!=row) {
+					return 0;
+				}
+			}
+			
+			var sRow = row-row%3;
+			var sCol = col-col%3;
+			
+			for (var p=0;p<3;p++) {
+				for (var q=0;q<3;q++) {
+					if (grid[p+sRow][q+sCol] == num && (row!=p+sRow && col!=q+sCol)) {
+						return 0;
+					}
+				}
+			}
+			return 1;
+		}
+		
+		
+		function solveSudoku(grid,row,col) {
+			if (col == 9) {
+				if (row == 8) {
+					return 1;
+				}
+				row++;
+				col=0;
+			}
+			if (grid[row][col] > 0) {
+				return solveSudoku(grid,row,col+1);
+			}
+			for (var num = 1;num<10;num++) {
+				if (isSafe(grid,row,col,num) == 1) {
+					grid[row][col] = num;
+					if (solveSudoku(grid,row,col+1) == 1) {
+						return 1;
+					}
+				}
+				grid[row][col] = 0;
+			}
+			return 0;
+		}
+		
+		function print(grid) {
+			for (var i=0;i<9;i++) {
+				for (var j=0;j<9;j++) {
+					id = String(i)+String(j);
+					document.getElementById(id).innerHTML= grid[i][j];
+				}
+			}
+		}
+		
+		function clearSudoku() {
+			for (var i=0;i<9;i++) {
+				for (var j=0;j<9;j++) {
+					grid[i][j] = '';
+				}
+			}
+			for (var i=0;i<9;i++) {
+				for (var j=0;j<9;j++) {
+					id = String(i)+String(j);
+					document.getElementById(id).style.backgroundColor = '#e8ff27';
+				}
+			}
+			print(grid);
+		}
+	</script>
+</body>
+</html>
+
+<!--12:23_01-04-2021-->
