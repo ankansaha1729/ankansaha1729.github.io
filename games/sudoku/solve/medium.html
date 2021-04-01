@@ -218,7 +218,7 @@
 				document.getElementById('accessor').innerHTML = "submit";
 			}
 			else {
-				alert(checkWin());
+				checkWin();
 			}
 		}
 		function fill() {
@@ -238,21 +238,26 @@
 		
 		function checkWin() {
 			fill();
-			alert(grid);
 			for (var i=0;i<9;i++) {
 				for (var j=0;j<9;j++) {
-					//alert(grid);
-					//alert(grid[0][0] == 0);
 					if (grid[i][j] == 0) {
-						alert(i);
-						alert(j);
+						document.getElementById('accessor').innerHTML = "Not Solved";
+						setTimeout(() => {
+							document.getElementById('accessor').innerHTML = "submit";
+						},1729);
 						return 0;
 					}
 					if (isSafe(grid,i,j,grid[i][j]) == 0) {
+						document.getElementById('accessor').innerHTML = "Not Solved";
+						setTimeout(() => {
+							document.getElementById('accessor').innerHTML = "submit";
+						},1729);
+						
 						return 2;
 					}
 				}
 			}
+			document.getElementById('accessor').innerHTML = "Solved!";
 			return 1;
 		}
 		
