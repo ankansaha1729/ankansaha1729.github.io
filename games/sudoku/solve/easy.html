@@ -11,12 +11,15 @@
 	<style>
 		*{
 			padding: 0px;
+			margin: 0px;
 		}
 		h1 {
 			font-size: 41px;
 			margin-bottom: 0px;
 			font-family: 'Stick', sans-sarif;
-			margin-left: 28vw;
+			margin-top: -3vh;
+			margin-left: 29.5vw;
+			margin-top: 3px;
 		}
 		hr {
 			/*margin-top: 0px;*/
@@ -27,11 +30,14 @@
 			text-align: center;
 			outline: none;
 			border-radius: 1px;
+			caret-color: #313131;
 			background-color: #e8ff27;
 		}
 		table {
 			border-radius: -0px;
 			background-color: #2cccea;
+			margin-top: 0px;
+			margin: 5px;
 		}
 		
 		div {
@@ -48,9 +54,27 @@
 			
 		}
 		
+		#clockBar {
+			background-color: #303030;
+			color: white;
+			margin-left: -150%;
+			height: 20%;
+			width: 20vw;
+			padding: 10px 20px 10px 20px;
+			border-radius: 10px;
+			font-weight: bolder;
+			margin-bottom: 3px;
+			display: flex;
+			transition-duration: 2s;
+			
+		}
+		td:hover {
+			background: #ffff0f;
+		}
+		
 		@media only screen and (min-width: 480px) {
 			h1 {
-				margin-left: 37vw;
+				margin-left: 38vw;
 			}
 			
 			table {
@@ -73,8 +97,11 @@
 	</style>
 </head>
 <body style="background-color: lightgrey">
-	<p id="demo" align="center"> <h1 ondblclick="clearSudoku()" > <ins> sudoku </ins>
-	</h1> </p><hr>
+	
+	
+	<p id="demo" align="center"> <h1 onclick="showClock(0)" > <ins> sudoku </ins>
+	</h1> </p>
+	<p id="clockBar" > 00:00:00 </p>
 	
 	<table border="1">
 		<tr>
@@ -211,14 +238,90 @@
 		var funcCall = 0;
 		
 		
+		//timer
+		var hr=0,mn=0,sc=0;
+		var started=false,stopped=false;
+		
+		function init() {
+		if (stopped) {
+		started=false
+		return;
+		}
+		started=true
+		hr=hr.toString();
+		mn=mn.toString();
+		sc=sc.toString();
+		
+		
+		if (hr.length<2) {
+		hr = '0'+hr
+		}
+		if (mn.length<2) {
+		mn = '0'+mn
+		}
+		if (sc.length<2) {
+		sc = '0'+sc
+		}
+		
+		document.getElementById('clockBar').innerHTML = hr+':'+mn+':'+sc;
+		stopwatch_cal();
+		}
+		function stopwatch_cal() {
+		hr = Number(hr);
+		mn = Number(mn);
+		sc = Number(sc);
+		setTimeout(() => {
+		if (++sc == 60) {
+		mn+=1;
+		sc=0;
+		}
+		if (mn == 60) {
+		hr+=1;
+		mn=0;
+		}
+		init();
+		},1000);
+		}
+		function swStart() {
+		stopped=false;
+		if(!started) init();
+		}
+		function swStop() {
+		stopped=true;
+		}
+		function swReset() {
+		swStop();
+		hr=0,mn=0,sc=0;
+		document.getElementById('clockBar').innerHTML = '00:00:00';
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		function showClock(n) {
+			var clock = document.getElementById('clockBar');
+			clock.style.marginLeft = "68vw";
+			setTimeout(() => {
+				if (n == 0) {
+					clock.style.marginLeft = "-150%";
+				}
+			},5000);
+		}
+		
 		function callStart() {
+			swStart();
 			if (aBool) {
 				start();
 				aBool = 0;
 				document.getElementById('accessor').innerHTML = "submit";
 			}
 			else {
-			        checkWin();
+				checkWin();
 			}
 		}
 		function fill() {
@@ -258,6 +361,8 @@
 				}
 			}
 			document.getElementById('accessor').innerHTML = "Solved!";
+			swStop();
+			showClock(1);
 			return 1;
 		}
 		
@@ -289,15 +394,15 @@
 		
 		function start() {
 			var num,indx,indx1,indx2;
-			var hard = [0,0,1,0,0,1,0,1];
+			var hard = [0,0,1,0,0,0,0,1];
 			var mid = [1,0,1,0,1,0,1,0];
-			var easy = [1,1,0,1,0,1,0,1];
+			var easy = [1,1,0,1,1,1,0,1];
 			
 			var bool = easy;
 			//funcCall++;
 			print(grid);
 			
-			for (var n=0;n<21;n++) {
+			for (var n=0;n<17;n++) {
 				indx1 = Math.floor(Math.random()*9);
 				indx2 = Math.floor(Math.random()*9);
 				num = Math.floor(Math.random()*9)+1;
