@@ -29,13 +29,13 @@
 			height: 10vw;
 			text-align: center;
 			outline: none;
-			border-radius: 1px;
+			border-radius: 1.41px;
 			caret-color: #313131;
 			background-color: #e8ff27;
 		}
 		table {
 			border-radius: -0px;
-			background-color: #2cccea;
+			background-color: #101010;
 			margin-top: 0px;
 			margin: 5px;
 		}
@@ -233,9 +233,11 @@
 		];
 				
 		var indx1,indx2;
-		var nums = [1,9,3,4,5,8,6,7,9];
+		var nums = [1,2,9,3,4,5,8,6,7,9];
+		var nums2 = [1,2,9,3,4,5,8,6,7,0];
 		var aBool=1;
 		var funcCall = 0;
+		var solved=0;
 		
 		
 		//timer
@@ -283,6 +285,7 @@
 		},1000);
 		}
 		function swStart() {
+		if (solved) return
 		stopped=false;
 		if(!started) init();
 		}
@@ -339,10 +342,22 @@
 			}
 		}
 		
+		function isElement(num) {
+			for (i=0;i<10;i++) {
+				if (nums2[i] == num)  {
+					return 1;
+				}
+			}
+			return 0;
+		}
 		function checkWin() {
 			fill();
 			for (var i=0;i<9;i++) {
 				for (var j=0;j<9;j++) {
+					if (isElement(grid[i][j]) == 0) {
+						document.getElementById('accessor').innerHTML = "Not Solved";
+						return 0;
+					}
 					if (grid[i][j] == 0) {
 						document.getElementById('accessor').innerHTML = "Not Solved";
 						setTimeout(() => {
@@ -360,13 +375,18 @@
 					}
 				}
 			}
-			document.getElementById('accessor').innerHTML = "Solved!";
 			swStop();
+			document.getElementById('accessor').innerHTML = "Solved!";
+			solved = 1;
 			showClock(1);
 			return 1;
 		}
 		
-		
+		/*
+		function reLoad() {
+			setTimeout(() => {location.reload();},10000);
+		}
+		*/
 		function dTransfer2() {
 			for (var e=0;e<9;e++) {
 				for (var f=0;f<9;f++) {
@@ -396,11 +416,15 @@
 			var num,indx,indx1,indx2;
 			var hard = [0,0,1,0,0,0,0,1];
 			var mid = [1,0,1,0,1,0,1,0];
-			var easy = [1,1,0,1,1,1,0,1];
+			var easy = [1,1,0,1,0,0,1,1];
 			
 			var bool = mid;
 			//funcCall++;
 			print(grid);
+			
+			if (solved) {
+				return;
+			}
 			
 			for (var n=0;n<17;n++) {
 				indx1 = Math.floor(Math.random()*9);
@@ -487,7 +511,7 @@
 					id = String(i)+String(j);
 					if (grid[i][j] != 0){
 						document.getElementById(id).innerHTML= grid[i][j];
-						document.getElementById(id).style.backgroundColor = '#c2d1d8';
+						document.getElementById(id).style.backgroundColor = 'lightgrey';
 						document.getElementById(id).contentEditable = false;
 					}
 				}
